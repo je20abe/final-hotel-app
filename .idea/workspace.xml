@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="118cac50-d766-4b72-9880-34842cfa50bd" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-j-8.2.0.jar" afterDir="false" />
+    <list default="true" id="118cac50-d766-4b72-9880-34842cfa50bd" name="Changes" comment="initial commit&#10;Created a directory called lib and moved the jar file by copying and pasting. After i added it to my project structure. Doing this inititates mysql drive with java(intelli j)">
+      <change afterPath="$PROJECT_DIR$/src/GUIS/Baseframe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final hotel app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/final hotel app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -27,6 +36,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -37,9 +47,17 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -57,7 +75,7 @@
       <updated>1707669456939</updated>
       <workItem from="1707669458029" duration="1265000" />
       <workItem from="1707854754521" duration="9000" />
-      <workItem from="1708189905937" duration="635000" />
+      <workItem from="1708189905937" duration="1523000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -67,7 +85,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707669590442</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="initial commit&#10;Created a directory called lib and moved the jar file by copying and pasting. After i added it to my project structure. Doing this inititates mysql drive with java(intelli j)">
+      <option name="closed" value="true" />
+      <created>1708190749021</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1708190749021</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -75,6 +101,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="initial commit&#10;Created a directory called lib and moved the jar file by copying and pasting. After i added it to my project structure. Doing this inititates mysql drive with java(intelli j)" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial commit&#10;Created a directory called lib and moved the jar file by copying and pasting. After i added it to my project structure. Doing this inititates mysql drive with java(intelli j)" />
   </component>
 </project>
