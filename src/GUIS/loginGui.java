@@ -1,7 +1,15 @@
 package GUIS;
 
+import db_objs.user;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import static db_objs.MyJDBC.validatelogin;
 
 /*
     This gui will allow user to log in or launch the register GUI
@@ -67,7 +75,40 @@ public class loginGui extends Baseframe {
         JButton loginButton = new JButton("Login");
         loginButton.setBounds(20, 470, this.getWidth() - 50, 40);
         loginButton.setFont(new Font("Dialog", Font.PLAIN, 21));
-        add(loginButton);
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //getUserName
+                String username = usernameField.getText();
+
+                //get password
+                String password = String.valueOf(passwordField.getPassword());
+
+                // validate login
+                user User = validatelogin(username, password);
+
+                //if user is null it means invalid otherwise it is a valid account
+                if(User != null){
+                    //means valid login
+
+                    //dispose this GUI
+                    loginGui.this.dispose();
+
+                    //launch restaurant app gui
+                    RestaurantGUI restaurantGUI =  new RestaurantGUI(User);
+                    restaurantGUI.setVisible(true);
+
+                    //show success dialog
+                    JOptionPane.showMessageDialog(restaurantGUI, "Login successfully!");
+                }else {
+                    //invalid login
+                    JOptionPane.showMessageDialog(loginGui.this, "invalid username or password");
+                }
+
+            }
+        });
+        this.add(loginButton);
+
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setOpaque(false);
@@ -75,5 +116,25 @@ public class loginGui extends Baseframe {
         registerlabel.setFont(new Font("Dialog", Font.BOLD, 21));
         registerlabel.setBounds(0, 510, getWidth() -10, 30 );
         registerlabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //adds an event listener so when the mouse is clicked it will launch the register gui
+        registerlabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                //dispose of this gui
+                loginGui.this.dispose();
+
+                //launch the register gui
+                new registerGUI().setVisible(true);
+            }
+        });
+        this.add(registerlabel);
+
+        bottomPanel.add(registerlabel); // Add the label to the bottom panel
+        // Using BorderLayout's SOUTH to add the register label at the bottom
+        getContentPane().add(registerlabel, BorderLayout.SOUTH);
+
     }
+
 }
