@@ -26,12 +26,23 @@ public abstract class Baseframe extends JFrame {
         // set size(in pixels)
         // https://stackoverflow.com/questions/8193801/how-to-set-specific-window-frame-size-in-java-swing
         this.setSize(500, 600);
+
+
         this.setDefaultCloseOperation(3);
-        this.setLayout((LayoutManager)null);
+
+        // set layout to null to have an absolute layout which allows us to manually specify the size and position of each gui component
+        this.setLayout(null);
+
+        // prevent GUI from being resized
         this.setResizable(false);
+
+        // launch the gui in the center of the screen
         this.setLocationRelativeTo((Component)null);
+
+        // call on subclass addGUIComponents()
         this.addGUIComponents();
     }
 
+    // this method will need to be defined by subclasses when this class is being inherited from
     protected abstract void addGUIComponents();
 }
