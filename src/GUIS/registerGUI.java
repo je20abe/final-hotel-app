@@ -1,7 +1,13 @@
 package GUIS;
 
+import db_objs.MyJDBC;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class registerGUI extends Baseframe{
     public registerGUI(){
@@ -78,6 +84,7 @@ public class registerGUI extends Baseframe{
         rePasswordField.setFont(new Font("Dialog", 0, 28));
         this.add(rePasswordField);
 
+
         // create login label
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setOpaque(false);
@@ -85,5 +92,99 @@ public class registerGUI extends Baseframe{
         loginlable.setBounds(0, 530, this.getWidth() - 10, 30);
         loginlable.setFont(new Font("Dialog", Font.PLAIN, 21));
         loginlable.setHorizontalAlignment(SwingConstants.CENTER);
+        //loginlable.setForeground(Color.white);
+        loginlable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //dispose of this gui
+                registerGUI.this.dispose();
+
+                // launch the login gui
+                new loginGui().setVisible(true);
+            }
+        });
+        this.add(loginlable);
+
+        bottomPanel.add(loginlable); // Add the label to the bottom panel
+
+        // Using BorderLayout's SOUTH to add the register label at the bottom
+        getContentPane().add(loginlable, BorderLayout.SOUTH);
+
+        // create Register Button
+        JButton RegisterButton = new JButton("Register");
+        RegisterButton.setBounds(20, 500, this.getWidth() - 50, 40);
+        RegisterButton.setFont(new Font("Dialog", Font.PLAIN, 21));
+        RegisterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // get username
+                String username = usernameField.getText();
+
+                // get password
+                String password = String.valueOf(passwordField.getPassword());
+
+                // get retype password
+                String rePassword = String.valueOf(rePasswordField.getPassword());
+
+                //get firstname
+                String firstName = String.valueOf(firstNameField.getText());
+
+                //get lastname
+                String lastName = String.valueOf(lastNameField.getText());
+
+
+                // we will need to validate the user input
+                if (validateUserInput(username, password, rePassword)) {
+                    // attempt to register user to database
+                    if (MyJDBC.register(firstName, lastName, username, password)) {
+                        // register success
+                        // dispose of this gui
+                        registerGUI.this.dispose();
+
+                        // launch the login gui
+                        loginGui loginGui = new loginGui();
+                        loginGui.setVisible(true);
+
+                        //create a result dialog
+                        JOptionPane.showMessageDialog(loginGui, "Registered Successfully!!");
+                    } else {
+                        JOptionPane.showMessageDialog(registerGUI.this, "Error: username already taken");
+                    }
+                } else {
+                    // invalid user input
+                    JOptionPane.showMessageDialog(registerGUI.this,
+                            "Error: username must be atleast 6 characters\n" + "and/or Password must match"
+                    );
+                }
+            }
+        });
+        this.add(RegisterButton);
+
     }
+
+    private boolean validateUserInput(String username, String password, String rePassword) {
+        // Check if all fields have a value
+        if (username.isEmpty() || password.isEmpty() || rePassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields are required.");
+            return false;
+        }
+
+        // Check if username is at least 6 characters long
+        if (username.length() < 6) {
+            JOptionPane.showMessageDialog(this, "Username must be at least 6 characters long.");
+            return false;
+        }
+
+        // Check if password and re-typed password are the same
+        if (!password.equals(rePassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match.");
+            return false;
+        }
+
+
+
+        // If all checks pass
+        return true;
     }
+
+}
