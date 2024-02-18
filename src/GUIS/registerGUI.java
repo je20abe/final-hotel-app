@@ -12,13 +12,40 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+/*
+The BackgroundPanel class is created as a custom component to allow the panel to have a background image. This is necessary because JPanel does not natively support background images.
+* */
+// Custom JPanel to paint background image
+class BackgroundPanel extends JPanel {
+    private Image backgroundImage;
+
+    // Constructor to set the background image
+    public BackgroundPanel(String imagePath) {
+        try {
+            // Load the background image
+            backgroundImage = ImageIO.read(new File("/Users/justice/Desktop/final hotel app/final hotel app/login.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Draw the background image
+        g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+    }
+}
 
 
     public class registerGUI extends Baseframe {
         public registerGUI() {
             super("JK Restaurant");
 
-
+            // Background setup
+            BackgroundPanel1 backgroundPanel = new BackgroundPanel1("/Users/justice/Desktop/final hotel app/final hotel app/login.jpg");
+            backgroundPanel.setLayout(null); // Use null layout for absolute positioning
+            setContentPane(backgroundPanel); // Set the background panel as the content pane
             // Add GUI components
             addGUIComponents();
 
@@ -120,7 +147,7 @@ import java.io.IOException;
 
 
             // Using BorderLayout's SOUTH to add the register label at the bottom
-            getContentPane().add(loginlable, BorderLayout.SOUTH);
+           // getContentPane().add(loginlable, BorderLayout.SOUTH);
 
             // create Register Button
             JButton RegisterButton = new JButton("Register");
