@@ -2,18 +2,58 @@ package GUIS;
 
 import db_objs.user;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 /*
     performs restaurant functionalities such as viewing menu to place order and also view order history.
-    This extends from baseframe which means i will need to define our own addGuicomponent
+    This extends from baseframe which means I will need to define our own addGuicomponent
  */
+
+
+/*
+The BackgroundPanel class is created as a custom component to allow the panel to have a background image. This is necessary because JPanel does not natively support background images.
+* */
+// Custom JPanel to paint background image
+class BackgroundPanel1 extends JPanel {
+    private Image backgroundImage;
+
+    // Constructor to set the background image
+    public BackgroundPanel1(String imagePath) {
+        try {
+            // Load the background image
+            backgroundImage = ImageIO.read(new File("/Users/justice/Desktop/final hotel app/final hotel app/GUI.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Draw the background image
+        g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+    }
+}
 public class RestaurantGUI extends Baseframe implements ActionListener {
     public RestaurantGUI(user User) {
         super("Restaurant app", User);
+
+        // Background setup
+        BackgroundPanel1 backgroundPanel = new BackgroundPanel1("/Users/justice/Library/CloudStorage/OneDrive-UniversityofHertfordshire/hotel app/GUI.jpg");
+        backgroundPanel.setLayout(null); // Use null layout for absolute positioning
+        setContentPane(backgroundPanel); // Set the background panel as the content pane
+
+        // Add GUI components
+        addGUIComponents();
+
+        // Frame visibility
+        setVisible(true);
     }
 
     @Override
@@ -48,6 +88,21 @@ public class RestaurantGUI extends Baseframe implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new RestaurantappDailogue(this, User).setVisible(true);
+        // Handle action events for buttons
+        String buttonPressed = e.getActionCommand();
 
-}}
+        // Open Menu Dialogue if "Menu" button is pressed
+        if ("Menu".equalsIgnoreCase(buttonPressed)) {
+            new RestaurantappDailogue(this, User, "Menu").setVisible(true);
+        }
+        // Open Order History Dialogue if "Order History" button is pressed
+        else if ("Order History".equalsIgnoreCase(buttonPressed)) {
+            new RestaurantappDailogue(this, User, "Order History").setVisible(true);
+        }
+        // Logout and open login window if "Logout" button is pressed
+        else if ("Logout".equalsIgnoreCase(buttonPressed)) {
+            dispose(); // Close the current window
+            new loginGui().setVisible(true); // Open the login window
+        }
+    }
+}
