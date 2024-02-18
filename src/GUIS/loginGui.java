@@ -2,12 +2,15 @@ package GUIS;
 
 import db_objs.user;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 import static db_objs.MyJDBC.validatelogin;
 
@@ -15,11 +18,31 @@ import static db_objs.MyJDBC.validatelogin;
     This gui will allow user to log in or launch the register GUI
  */
 public class loginGui extends Baseframe {
+    private Image backgroundImage;
     public loginGui() {
         super("JK Restaurant");
+
+
+        // Load the background image
+        // https://stackoverflow.com/questions/9864267/loading-resources-like-images-while-running-project-distributed-as-jar-archive/9866659#9866659
+        try {
+            backgroundImage = ImageIO.read(new File("/Users/justice/Library/CloudStorage/OneDrive-UniversityofHertfordshire/hotel app/login.jpg"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        // Set the content pane to a new panel that will draw the background image
+        setContentPane(new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+            }
+        });
+
+        addGUIComponents();
     }
 
-    @Override
     protected void addGUIComponents() {
         // create Restaurant app label
         JLabel restaurantAppLabel = new JLabel("JK Restaurant");
@@ -33,7 +56,7 @@ public class loginGui extends Baseframe {
         // center the text in jLabel
         restaurantAppLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Set text color to white
+        // Set text color
         restaurantAppLabel.setForeground(Color.PINK);
 
         // adds to the GUI
@@ -41,14 +64,8 @@ public class loginGui extends Baseframe {
 
         // create username label
         JLabel usernamelabel = new JLabel("Username: ");
-
-        //getwidth() returns the width of our frame
         usernamelabel.setBounds(20, 120, this.getWidth() - 30, 24);
-
-        //change the font style
         usernamelabel.setFont(new Font("Dialog", Font.PLAIN, 20));
-
-        // Set text color to white
         usernamelabel.setForeground(Color.WHITE); // Set text color to white
         this.add(usernamelabel); // adds to GUI
 
@@ -109,13 +126,13 @@ public class loginGui extends Baseframe {
         });
         this.add(loginButton);
 
-
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setOpaque(false);
         JLabel registerlabel = new JLabel("<html><a href='#' style='color: white;'>Don't have an account? Register here</a></html>");
         registerlabel.setFont(new Font("Dialog", Font.BOLD, 21));
         registerlabel.setBounds(0, 510, getWidth() -10, 30 );
         registerlabel.setHorizontalAlignment(SwingConstants.CENTER);
+        //registerlabel.setForeground(Color.BLACK); // Set the entire label's text color
 
         //adds an event listener so when the mouse is clicked it will launch the register gui
         registerlabel.addMouseListener(new MouseAdapter() {
