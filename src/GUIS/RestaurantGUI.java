@@ -4,12 +4,14 @@ import db_objs.user;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /*
     performs restaurant functionalities such as viewing menu to place order and also view order history.
     This extends from baseframe which means i will need to define our own addGuicomponent
  */
-public class RestaurantGUI extends Baseframe{
+public class RestaurantGUI extends Baseframe implements ActionListener {
     public RestaurantGUI(user User) {
         super("Restaurant app", User);
     }
@@ -40,7 +42,12 @@ public class RestaurantGUI extends Baseframe{
         button.setForeground(Color.BLACK);
         button.setOpaque(true);
         button.setBackground(new Color(95, 127, 161)); // Custom color for the button
-       // button.addActionListener(this);
+        button.addActionListener(this);
         return button;
     }
-}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new RestaurantappDailogue(this, User).setVisible(true);
+
+}}
